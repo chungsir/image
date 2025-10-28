@@ -1,1 +1,18 @@
-asdfasdfasdfasdf
+data = redis_helper.read("sheet:段考1-1-1")
+
+    import pandas as pd
+    h_df = pd.DataFrame(data)
+    filtered_df = (h_df[h_df['姓名'] == '謝博丞'].values.tolist())[0]
+    
+    #個人各科分數
+    score=filtered_df[2:7]
+
+    #各科平均
+    avg=(pd.to_numeric(h_df.iloc[-1], errors='coerce').dropna().tolist())[1:6]
+
+    #科目名稱
+    title=(h_df.columns.tolist())[2:7]
+    print(title, score, avg)
+
+    data=list(zip(title,score,avg))
+    print(data)
